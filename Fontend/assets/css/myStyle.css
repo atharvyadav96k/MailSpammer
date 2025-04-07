@@ -1,0 +1,117 @@
+.main-window{
+    flex-grow: 1;
+    background-color: rgb(212, 212, 212);
+    padding: 10px;
+    overflow: scroll;
+    height: calc(100vh - 60px);
+}
+.property-window{
+    padding: 10px;
+    width: 250px;
+    overflow: scroll;
+    height: calc(100vh - 60px);
+}
+.property-window::-webkit-scrollbar{
+    width: 0px;
+}
+#mailScreen{
+    overflow: hidden;
+    margin: auto;
+    border-radius: 10px;
+    width: 500px;
+    padding: 20px;
+    background-color: white;
+}
+.colorPicker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    padding: 0;
+    margin: 5px;
+    border: none;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.colorPicker::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: 50%;
+}
+
+.colorPicker::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+.textAlignContainer{
+    border: 1px solid rgb(113, 113, 113);
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(240, 240, 240);
+    margin: 10px;
+}
+.textAlign{
+    display: flex; 
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s ease-in;
+}
+.textAlign:hover{
+    background-color: rgb(212, 212, 212);
+    border-radius: 3px;
+}
+.active{
+    background-color: rgb(212, 212, 212);
+}
+.moveButtonsContainer{
+    position: absolute;
+    top: 10px;
+    right: 280px;
+    display: flex;
+    flex-direction: column;
+    height: 90px;
+    justify-content: space-between;
+}
+.moveButtons{
+    background-color: #1890ff; width: 40px; height: 40px; border-radius: 20px;border: none;
+}
+.moveButtons:hover{
+    box-shadow: inset 1px 1px 5px 1px black;
+}
+.primary{
+    background-color: #0d6df9;
+    color: white;
+}
+.secondary{
+    background-color: #6c757d;
+    color: #ffffff;
+}
+.success{
+    background-color: #198754;
+    color: white;
+}
+.danger{
+    background-color: #dc3545;
+    color: white;
+}
+.warning{
+    background-color: #d4a20e;
+    color: black;
+}
+.info{
+    background-color: #0dcaf0;
+    color: black;
+}
+.light{
+    background-color: white;
+    color: black;
+}
+.dark{
+    background-color: #212529;
+    color: black;
+}
+.dark:hover{
+    background-color: #bcbcbc;
+    color: white;
+}
