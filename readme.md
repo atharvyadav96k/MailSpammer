@@ -1,1 +1,1 @@
-<img href="./Frontend/assets/images/logo.png">
+<img href="https://i.ibb.co/TBqW5KKh/logo.png" width="30" height="30">
