@@ -1,11 +1,13 @@
 let currentTextElement = null;
 let currentImageElement = null;
 let currentButtonElement = null;
+let currentLinkElement = null;
 let selectedItemType = "none";
 
 const textPropertyWindow = document.getElementById("textPropertyWindow");
 const imagePropertyWindow = document.getElementById("imagePropertyWindow");
 const buttonPropertyWindow = document.getElementById("buttonPropertyWindow");
+const linkPropertyWindow = document.getElementById("linkPropertyWindow");
 const canvas = document.getElementById("mailScreen");
 const heading = document.querySelectorAll('.heading');
 const text = document.querySelectorAll('.text');
@@ -60,7 +62,7 @@ function loadTextProperty() {
     document.getElementById("letterSpacingPicker").value = parseFloat(getComputedStyle(currentTextElement).letterSpacing) || 0;
 }
 function property() {
-    let items = [textPropertyWindow, imagePropertyWindow, buttonPropertyWindow];
+    let items = [textPropertyWindow, imagePropertyWindow, buttonPropertyWindow, linkPropertyWindow];
     if (currentImageElement) {
         currentImageElement.style.border = "none";
     }
@@ -71,6 +73,10 @@ function property() {
 
     if (currentButtonElement) {
         currentButtonElement.style.border = "none";
+    }
+    
+    if (currentLinkElement) {
+        currentLinkElement.style.border = "none";
     }
 
     items.forEach((ele) => {
@@ -95,6 +101,11 @@ function property() {
             buttonPropertyWindow.style.display = "block";
             currentButtonElement.style.border = "1px dashed rgba(0,0,0,0.5)";
             loadButtonProperty();
+            break;
+        case "link":
+            document.getElementById("property-window").style.display = "block";
+            linkPropertyWindow.style.display = "block";
+            currentLinkElement.style.borderBottom = "1px dashed rgba(0,0,0,0.5)";
             break;
         default:
             document.getElementById("property-window").style.display = "none";
@@ -351,13 +362,13 @@ image.forEach((ele, idx) => {
     });
 });
 function moveElementUp() {
-    const element = selectedItemType === 'text' ? currentTextElement : selectedItemType === 'img' ? currentImageElement : currentButtonElement;
+    const element = selectedItemType === 'text' ? currentTextElement : selectedItemType === 'img' ? currentImageElement : selectedItemType == 'link' ? currentLinkElement : currentButtonElement;
     if (element && element.previousElementSibling) {
         canvas.insertBefore(element, element.previousElementSibling);
     }
 }
 function moveElementDown() {
-    const element = selectedItemType === 'text' ? currentTextElement : selectedItemType === 'img' ? currentImageElement : currentButtonElement;
+    const element = selectedItemType === 'text' ? currentTextElement : selectedItemType === 'img' ? currentImageElement : selectedItemType == 'link' ? currentLinkElement : currentButtonElement;
     if (element && element.nextElementSibling) {
         canvas.insertBefore(element.nextElementSibling, element);
     }
@@ -393,7 +404,7 @@ function loadButtonProperty() {
     document.getElementById("buttonFont").value = parseFloat(getComputedStyle(aTag).fontSize) || 0;
     document.getElementById("buttonRound").value = parseInt(aTag.style.borderRadius) || "";
     document.getElementById("buttonTextDecoration").value = aTag.style.textDecoration || "none";
-    document.getElementById("buttonAlign").value = currentButtonElement.style.justifyContent || "flex-start";
+    document.getElementById("buttonAlign").value = currentButtonElement.style.justifyContent || "center";
 }
 
 function removeBtnElement() {
@@ -420,6 +431,8 @@ btn.forEach((ele, idx) => {
         wrapper.id = getId();
         wrapper.style.cursor = "pointer";
         wrapper.style.border = "1px dashed #000";
+        wrapper.style.display = "flex";
+        wrapper.style.justifyContent = "center";
         const buttonElement = document.createElement('a');
         buttonElement.innerText = 'Click Me';
         buttonElement.style.padding = "8px 16px";
@@ -489,5 +502,67 @@ document.getElementById('buttonRound').addEventListener('input', (event) => {
 document.getElementById('buttonTextDecoration').addEventListener('change', (event) => {
     if (currentButtonElement) {
         currentButtonElement.querySelector('a').style.textDecoration = event.target.value;
+    }
+});
+
+// Links 
+function loadLinkProperty() {
+    if (currentLinkElement) {
+        document.getElementById('linkText').value = currentLinkElement.innerText;
+        document.getElementById('textLink').value = currentLinkElement.getAttribute("data-url") || "";
+    }
+}
+
+export function linkProperty(id) {
+    if (currentLinkElement) {
+        currentLinkElement.style.borderBottom = "none";
+    }
+
+    currentLinkElement = document.getElementById(id);
+    currentLinkElement.style.borderBottom = "2px dashed blue";
+    selectedItemType = 'link';
+
+    loadLinkProperty();
+    property(); 
+}
+
+document.getElementById("linksBtn").addEventListener('click', () => {
+    const linkTag = document.createElement('a');
+    linkTag.innerText = "unsubscribe";
+    linkTag.style.color = "blue";
+    linkTag.style.textDecoration = "underline";
+    linkTag.style.cursor = "pointer";
+    linkTag.style.paddingLeft = "4px";
+    linkTag.style.paddingRight = "4px";
+    linkTag.href = "#";
+    linkTag.setAttribute("data-url", "#");
+    linkTag.id = getId(); 
+    linkTag.addEventListener('click', (event) => {
+        event.preventDefault();
+        linkProperty(linkTag.id);
+    });
+    canvas.appendChild(linkTag);
+    linkProperty(linkTag.id);
+});
+
+document.getElementById('linkText').addEventListener('input', (event) => {
+    if (currentLinkElement) {
+        currentLinkElement.innerText = event.target.value;
+    }
+});
+
+document.getElementById('textLink').addEventListener('input', (event) => {
+    if (currentLinkElement) {
+        const value = event.target.value;
+        currentLinkElement.href = value;
+        currentLinkElement.setAttribute("data-url", value);
+    }
+});
+document.getElementById('deleteLinkElement').addEventListener('click', () => {
+    if (currentLinkElement) {
+        currentLinkElement.remove();
+        currentLinkElement = null;
+        document.getElementById('linkText').value = "";
+        document.getElementById('textLink').value = "";
     }
 });
