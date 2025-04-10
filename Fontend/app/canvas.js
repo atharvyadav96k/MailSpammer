@@ -74,3 +74,7 @@ document.getElementById("saveButton").addEventListener('click', () => {
     </html>`;
     copyToClipboard(txt);
 });
+
+export function canvasState(){
+    return canvas.innerHTML;
+}

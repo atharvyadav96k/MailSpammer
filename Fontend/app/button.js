@@ -1,18 +1,9 @@
 import { GlobalSelectedItem } from "./selectedItem.js";
 import { canvas } from "./canvas.js";
 import { getId } from "./globalFunction.js";
+import {property} from "./propertyWindow.js"
 const btn = document.querySelectorAll('.btnClick');
 
-
-function removeBtnElement() {
-    if (GlobalSelectedItem.item) {
-        GlobalSelectedItem.item.remove();
-        GlobalSelectedItem.item = null;
-    }
-    GlobalSelectedItem.selectedItemType = null;
-    property();
-}
-document.getElementById("deleteBtnElement").addEventListener('click', () => removeBtnElement)
 function buttonProperty(id) {
     GlobalSelectedItem.item = document.getElementById(id);
     GlobalSelectedItem.selectedItemType = "btn";

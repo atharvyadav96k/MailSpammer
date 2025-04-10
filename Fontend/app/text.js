@@ -5,26 +5,6 @@ import { getId } from "./globalFunction.js";
 const heading = document.querySelectorAll('.heading');
 const text = document.querySelectorAll('.text');
 
-const removeImgElementById = () => {
-    if (GlobalSelectedItem.item) {
-        GlobalSelectedItem.item.remove();
-        GlobalSelectedItem.item = null;
-    }
-    GlobalSelectedItem.selectedItemType = null;
-    property();
-}
-document.getElementById('deleteImageElement').addEventListener('click', removeImgElementById());
-
-property();
-
-function removeElementById() {
-    if (GlobalSelectedItem.item) {
-        GlobalSelectedItem.item.remove();
-        GlobalSelectedItem.item = null;
-    }
-    GlobalSelectedItem.selectedItemType = null;
-    property();
-}
 
 export function textPropertys(id) {
     GlobalSelectedItem.item = document.getElementById(id);
@@ -57,7 +37,6 @@ function updateTextContent(event) {
     }
 }
 
-document.getElementById("deleteElement").addEventListener('click', removeElementById);
 document.getElementById('contentTextArea').addEventListener('input', updateTextContent);
 document.getElementById('colorPicker').addEventListener('input', (event) => textColorProperty(event.target.value));
 document.getElementById('fontSizePicker').addEventListener('input', (event) => textSizeProperty(event.target.value));

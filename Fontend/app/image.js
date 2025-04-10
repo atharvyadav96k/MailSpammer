@@ -34,7 +34,6 @@ image.forEach((ele, idx) => {
         imageProperty(imgElement.id);
     });
 });
-
 document.getElementById('imgWidth').addEventListener('input', (event) => {
     if (GlobalSelectedItem.item && GlobalSelectedItem.selectedItemType == 'img') {
         GlobalSelectedItem.item.style.width = event.target.value + document.getElementById("scaleW").value;
@@ -53,5 +52,10 @@ document.getElementById('imagebgLight').addEventListener('input', (event) => {
 document.getElementById('imgPadding').addEventListener('input', (event) => {
     if (GlobalSelectedItem.item) {
         GlobalSelectedItem.item.style.padding = event.target.value + "px";
+    }
+});
+document.getElementById('url').addEventListener('input', (event) => {
+    if (GlobalSelectedItem.item) {
+        GlobalSelectedItem.item.src = event.target.value;
     }
 });

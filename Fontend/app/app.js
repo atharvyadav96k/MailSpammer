@@ -6,6 +6,16 @@ import { property } from "./propertyWindow.js";
 GlobalSelectedItem.item = null;
 GlobalSelectedItem.selectedItemType = null;
 
+property();
+
+function removeElement() {
+    if (GlobalSelectedItem.item) {
+        GlobalSelectedItem.item.remove();
+        GlobalSelectedItem.item = null;
+    }
+    GlobalSelectedItem.selectedItemType = null;
+    property();
+}
 function moveElementUp() {
     const element = GlobalSelectedItem.item;
     if (element && element.previousElementSibling) {
@@ -22,13 +32,7 @@ function moveElementDown() {
 document.addEventListener('keydown', (event) => {
     switch (event.key) {
         case "Delete":
-            if (GlobalSelectedItem.selectedItemType == "img") {
-                removeImgElementById();
-            } else if (GlobalSelectedItem.selectedItemType == "btn") {
-                removeBtnElement();
-            } else {
-                removeElementById();
-            }
+            removeElement();
             break;
         case "ArrowUp":
             moveElementUp();
@@ -40,10 +44,3 @@ document.addEventListener('keydown', (event) => {
 });
 document.getElementById("moveUpBtn").addEventListener('click', moveElementUp);
 document.getElementById("moveDownBtn").addEventListener('click', moveElementDown);
-document.getElementById('url').addEventListener('input', (event) => {
-    if (GlobalSelectedItem.item) {
-        GlobalSelectedItem.item.src = event.target.value;
-    }
-});
-
-// Links 

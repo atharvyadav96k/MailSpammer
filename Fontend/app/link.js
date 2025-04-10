@@ -40,11 +40,3 @@ document.getElementById('textLink').addEventListener('input', (event) => {
         GlobalSelectedItem.item.setAttribute("data-url", value);
     }
 });
-document.getElementById('deleteLinkElement').addEventListener('click', () => {
-    if (GlobalSelectedItem.item) {
-        GlobalSelectedItem.item.remove();
-        GlobalSelectedItem.item = null;
-        document.getElementById('linkText').value = "";
-        document.getElementById('textLink').value = "";
-    }
-});
