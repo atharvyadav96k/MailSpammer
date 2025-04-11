@@ -1,1 +1,1 @@
-![Logo](https://i.ibb.co/TBqW5KKh/logo.png)
+![Logo](https://i.ibb.co/cS92htwf/Rectangle-57.png)
