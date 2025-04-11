@@ -1,12 +1,23 @@
 import { GlobalSelectedItem } from "./selectedItem.js";
 import { getId } from "./globalFunction.js";
 import { property } from "./propertyWindow.js";
-import { canvas } from "./canvas.js";
+import { canvas, canvasState } from "./canvas.js";
+import { undoRedo } from "./undoRedo.js";
+import { idStorage } from "./UniqueStack.js";
 
 export function linkProperty(id) {
     GlobalSelectedItem.item = document.getElementById(id);
     GlobalSelectedItem.selectedItemType = 'link';
     property(); 
+}
+export function linkElementRevive(id){
+    const ele = document.getElementById(id);
+    if(ele){
+        ele.addEventListener('click', ()=>{
+            linkProperty(id);
+        });
+        linkProperty(id);
+    }
 }
 document.getElementById("linksBtn").addEventListener('click', () => {
     const linkTag = document.createElement('a');
@@ -25,6 +36,8 @@ document.getElementById("linksBtn").addEventListener('click', () => {
     });
     canvas.appendChild(linkTag);
     linkProperty(linkTag.id);
+    undoRedo.do(canvasState());
+    idStorage.push({type: "link", id: linkTag.id});
 });
 
 document.getElementById('linkText').addEventListener('input', (event) => {
@@ -32,11 +45,16 @@ document.getElementById('linkText').addEventListener('input', (event) => {
         GlobalSelectedItem.item.innerText = event.target.value;
     }
 });
-
-document.getElementById('textLink').addEventListener('input', (event) => {
+document.getElementById('linkText').addEventListener('change', ()=>{
+    if(GlobalSelectedItem.item){
+        undoRedo.do(canvasState());
+    }
+})
+document.getElementById('textLink').addEventListener('change', (event) => {
     if (GlobalSelectedItem.item) {
         const value = event.target.value;
         GlobalSelectedItem.item.href = value;
         GlobalSelectedItem.item.setAttribute("data-url", value);
+        undoRedo.do(canvasState());
     }
 });

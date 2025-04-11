@@ -5,11 +5,26 @@
     overflow: scroll;
     height: calc(100vh - 60px);
 }
+.main-window::-webkit-scrollbar{
+    width: 0px;
+}
+/* .scroller-window{
+    width: 100vw;
+    height: 100vw;
+    scroll-snap-points-x: 100%;
+} */
 .property-window{
-    padding: 10px;
+    /* top: 10px;
+    left : 100%;
+    transform: translateX(calc(-100% - 30px)); */
+    padding: 20px;
     width: 250px;
     overflow: scroll;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 80px);
+    /* position: absolute; */
+    background-color: white;
+    border-radius: 20px;
+    margin: 10px;
 }
 .property-window::-webkit-scrollbar{
     width: 0px;

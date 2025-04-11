@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="../assets/css/style.css" id="main-style-link">
   <link rel="stylesheet" href="../assets/css/style-preset.css">
   <link rel="stylesheet" href="../assets/css/myStyle.css">
+  <link rel="stylesheet" href="../assets/css/customTost.css">
 
 </head>
 
@@ -106,12 +107,7 @@
               <span class="pc-mtext"> Links</span>
             </a>
           </li>
-          <li class="pc-item">
-            <a href="#" class="pc-link">
-              <span class="pc-micon"><i class="ti ti-lock"></i></span>
-              <span class="pc-mtext">Login</span>
-            </a>
-          </li>
+
         </ul>
       </div>
     </div>
@@ -128,13 +124,27 @@
         </ul>
       </div>
       <div class="ms-auto" style="display: flex; align-items: center;">
+        <li class="pc-item" style="list-style: none; padding-right: 20px;">
+          <a href="#" id="undo" class="pc-link" title="undo" >
+            <span class="pc-micon"><i class="bi bi-arrow-counterclockwise fs-3 text-dark"></i></span>
+            <!-- <span class="pc-mtext">Undo</span> -->
+          </a>
+        </li>
+        <li class="pc-item" style="list-style: none; padding-right: 20px;">
+          <a href="#" id="redo" class="pc-link" title="redo">
+            <span class="pc-micon"><i class="bi bi-arrow-clockwise fs-3 text-dark"></i></span>
+            <!-- <span class="pc-mtext">Redo</span> -->
+          </a>
+        </li>
         <button class="btn btn-primary" id="saveButton">Save</button>
       </div>
     </div>
   </header>
-  <div class="pc-container" style="display: flex;">
+  <div class="pc-container" style="display: flex; background-color: #d4d4d4;">
     <div class="main-window">
-      <div id="mailScreen">
+      <div class="scroller-window">
+        <div id="mailScreen">
+      </div>
       </div>
     </div>
     <div class="property-window" id="property-window" aria-disabled="true">
@@ -184,7 +194,7 @@
         </p>
 
         <p style="display: flex; align-items: center;">Letter Spacing:
-          <input type="number" id="letterSpacingPicker" style="margin-left: 8px; width: 60px;"  value="0">
+          <input type="number" id="letterSpacingPicker" style="margin-left: 8px; width: 60px;" value="0">
         </p>
 
         <p style="display: flex; align-items: center;">Text Transform:
@@ -212,7 +222,6 @@
           <button class="btn textAlign" data-align="justify">Justify</button>
         </div>
 
-        <button class="btn btn-danger" id="deleteElement" style="margin-top: 12px;">Delete</button>
       </div>
       <div id="imagePropertyWindow">
         <p>URL of Image</p>
@@ -258,9 +267,7 @@
         <p>Box Shadow</p>
         <input type="text" id="imagebgLight" style="width: 100%;" placeholder="0px 0px 10px 2px black">
         <p>Padding (px)</p>
-        <input type="number" id="imgPadding" style="width: 100%;" placeholder="e.g. 10">
-
-        <button class="btn btn-danger" id="deleteImageElement" style="margin-top: 12px;">Delete</button>
+        <input type="number" id="imgPadding" style="width: 100%;" placeholder="e.g. 10">  
       </div>
       <div id="buttonPropertyWindow">
         <p>Button Content</p>
@@ -310,18 +317,18 @@
             <option value="flex-end">Right</option>
           </select>
         </p>
-
-        <button class="btn btn-danger" id="deleteBtnElement" style="margin-top: 12px;">Delete</button>
       </div>
       <div id="linkPropertyWindow">
         <p>Content</p>
         <textarea style="width: 100%;" id="linkText"></textarea>
         <p>Url</p>
         <textarea style="width: 100%;" id="textLink"></textarea>
-        <button class="btn btn-danger" id="deleteLinkElement" style="margin-top: 12px;">Delete</button>
       </div>
+      <button class="btn btn-danger" id="deleteElement" style="margin-top: 12px;">Delete</button>
     </div>
   </div>
+  <div id="toastContainer" class="toast-container"></div>
+
 
   <!-- <script src="../assets/js/plugins/apexcharts.min.js"></script> -->
   <script src="../assets/js/pages/dashboard-default.js"></script>
@@ -332,6 +339,8 @@
   <script src="../assets/js/pcoded.js"></script>
   <script src="../assets/js/plugins/feather.min.js"></script>
   <script type="module" src="../app/text.js"></script>
+  <script type="module" src="../app/undoRedo.js"></script>
+  <script type="module" src="../app/UniqueStack.js"></script>
   <script type="module" src="../app/link.js"></script>
   <script type="module" src="../app/image.js"></script>
   <script type="module" src="../app/selectedItem.js"></script>

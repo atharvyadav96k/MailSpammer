@@ -47,7 +47,6 @@ function loadImageProperty() {
 function loadButtonProperty() {
     if (!GlobalSelectedItem.item) return;
     const aTag = GlobalSelectedItem.item.querySelector('a');
-    console.log(getComputedStyle(aTag).fontSize)
     document.getElementById("buttonContent").value = aTag.innerText || "";
     document.getElementById("buttonUrl").value = aTag.getAttribute("data-url") || "";   
     document.getElementById("buttonDisplay").value = GlobalSelectedItem.item.style.display || "inline-block";
