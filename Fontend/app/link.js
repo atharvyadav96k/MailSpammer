@@ -4,10 +4,13 @@ import { property } from "./propertyWindow.js";
 import { canvas, canvasState } from "./canvas.js";
 import { undoRedo } from "./undoRedo.js";
 import { idStorage } from "./UniqueStack.js";
+import {removeBorder} from "./app.js"
 
 export function linkProperty(id) {
+    removeBorder();
     GlobalSelectedItem.item = document.getElementById(id);
     GlobalSelectedItem.selectedItemType = 'link';
+    GlobalSelectedItem.item.style.border = "1px dashed rgba(0, 0, 0, 0.3)";
     property(); 
 }
 export function linkElementRevive(id){
@@ -34,6 +37,7 @@ document.getElementById("linksBtn").addEventListener('click', () => {
         event.preventDefault();
         linkProperty(linkTag.id);
     });
+    linkTag.style.border = "1px dashed rgba(0, 0, 0, 0.3)";
     canvas.appendChild(linkTag);
     linkProperty(linkTag.id);
     undoRedo.do(canvasState());

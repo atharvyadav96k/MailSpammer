@@ -4,14 +4,17 @@ import { property } from "./propertyWindow.js";
 import { getId } from "./globalFunction.js";
 import { undoRedo } from "./undoRedo.js";
 import { idStorage } from "./UniqueStack.js";
+import {removeBorder} from "./app.js"
 
 const heading = document.querySelectorAll('.heading');
 const text = document.querySelectorAll('.text');
 
 export function textPropertys(id) {
+    removeBorder();
     GlobalSelectedItem.item = document.getElementById(id);
     document.getElementById('contentTextArea').value = GlobalSelectedItem.item.innerText;
     GlobalSelectedItem.selectedItemType = 'text';
+    GlobalSelectedItem.item.style.border = "1px dashed rgba(0, 0, 0, 0.3)"
     property();
 }
 
@@ -81,6 +84,7 @@ heading.forEach((ele, idx) => {
         headingElement.id = getId();
         headingElement.style.cursor = "pointer";
         headingElement.style.textAlign = "left";
+        headingElement.style.border = "2px dashed rgba(0, 0, 0, 0.3)";
         headingElement.addEventListener('click', () => textPropertys(headingElement.id));
         canvas.appendChild(headingElement);
         textPropertys(headingElement.id);
@@ -98,6 +102,7 @@ text.forEach((ele, idx) => {
         textElement.style.paddingLeft = "3px";
         textElement.style.paddingRight = "3px";
         textElement.innerHTML = 'Hello Mother Father';
+        textElement.style.border = "2px dashed rgba(0, 0, 0, 0.3)";
         if (idx === 1) textElement.style.textDecoration = "underline";
         if (idx === 2) textElement.style.textDecoration = "line-through";
         if (idx === 3) textElement.style.fontWeight = "bold";

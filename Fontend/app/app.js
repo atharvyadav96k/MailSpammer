@@ -7,6 +7,7 @@ import { buttonElementRevive } from "./button.js";
 import { idStorage } from "./UniqueStack.js";
 import { linkElementRevive } from "./link.js";
 import { imageElementRevive } from "./image.js";
+import { getStoredForm } from "./storeFormLocally.js";
 
 GlobalSelectedItem.item = null;
 GlobalSelectedItem.selectedItemType = null;
@@ -33,7 +34,6 @@ function moveElementDown() {
         canvas.insertBefore(element.nextElementSibling, element);
     }
 }
-
 document.addEventListener('keydown', (event) => {
     if ((event.ctrlKey || event.metaKey) && (event.key).toLocaleLowerCase() == "z") {
         undoFunction();
@@ -55,7 +55,6 @@ document.addEventListener('keydown', (event) => {
 });
 document.getElementById("moveUpBtn").addEventListener('click', moveElementUp);
 document.getElementById("moveDownBtn").addEventListener('click', moveElementDown);
-
 function reviveListener() {
     idStorage.getAll().forEach((ele) => {
         if (ele.type == "text") {
@@ -69,7 +68,6 @@ function reviveListener() {
         }
     });
 }
-
 function showCustomToast({ message = "This is a toast!", type = "danger", duration = 3000 }) {
     const container = document.getElementById('toastContainer');
 
@@ -87,11 +85,9 @@ function showCustomToast({ message = "This is a toast!", type = "danger", durati
         toast.style.animation = "fadeOut 0.5s ease forwards";
         setTimeout(() => {
             toast.remove();
-        }, 500); 
+        }, 500);
     }, duration);
 }
-
-
 const redoFunction = () => {
     try {
         undoRedo.redo();
@@ -102,7 +98,7 @@ const redoFunction = () => {
         property();
     } catch (e) {
         // console.log(e.message)
-        showCustomToast({message : e.message,type : "warning",duration :3000});
+        showCustomToast({ message: e.message, type: "warning", duration: 3000 });
     }
 }
 const undoFunction = () => {
@@ -115,9 +111,23 @@ const undoFunction = () => {
         property();
     } catch (e) {
         // console.log(e.message)
-        showCustomToast({message : e.message,type : "warning",duration :3000});
+        showCustomToast({ message: e.message, type: "warning", duration: 3000 });
     }
 }
 document.getElementById("undo").addEventListener('click', undoFunction);
 document.getElementById("redo").addEventListener('click', redoFunction);
 document.getElementById("deleteElement").addEventListener('click', removeElement);
+
+export const removeBorder = () => {
+    const items = document.getElementById("mailScreen").querySelectorAll("*");
+    items.forEach((ele) => {
+        ele.style.border = "none";
+    })
+}
+
+setTimeout(() => {
+    canvas.innerHTML = getStoredForm().code;
+    idStorage.setId(getStoredForm().ids);
+    console.log(getStoredForm().ids);
+    reviveListener();
+}, 2000);

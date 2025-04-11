@@ -4,12 +4,15 @@ import { getId } from "./globalFunction.js";
 import { property } from "./propertyWindow.js";
 import { undoRedo } from "./undoRedo.js";
 import { idStorage } from "./UniqueStack.js";
+import {removeBorder} from "./app.js"
 
 const image = document.querySelectorAll('.addImage');
 
 export function imageProperty(id) {
+    removeBorder();
     GlobalSelectedItem.item = document.getElementById(id);
     GlobalSelectedItem.selectedItemType = "img";
+    GlobalSelectedItem.item.style.border = '1px dashed rgba(0, 0, 0, 0.3)';
     property();
 }
 export function imageElementRevive(id){
@@ -36,7 +39,7 @@ image.forEach((ele, idx) => {
         } else if (idx === 2) {
             imgElement.style.objectFit = "contain";
         }
-
+        imgElement.style.border = "1px dashed rgba(0, 0, 0, 0.3)";
         imgElement.id = getId();
         imgElement.addEventListener('click', () => imageProperty(imgElement.id));
         canvas.appendChild(imgElement);

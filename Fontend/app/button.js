@@ -5,6 +5,7 @@ import {property} from "./propertyWindow.js";
 import { undoRedo } from "./undoRedo.js";
 import { idStorage } from "./UniqueStack.js";
 import { canvasState } from "./canvas.js";
+import {removeBorder} from "./app.js"
 
 const btn = document.querySelectorAll('.btnClick');
 
@@ -18,8 +19,10 @@ export function buttonElementRevive(id){
     }
 }
 function buttonProperty(id) {
+    removeBorder()
     GlobalSelectedItem.item = document.getElementById(id);
     GlobalSelectedItem.selectedItemType = "btn";
+    GlobalSelectedItem.item.style.border = "1px dashed rgba(0, 0, 0, 0.3)";
     property();
 }
 btn.forEach((ele, idx) => {
@@ -43,6 +46,7 @@ btn.forEach((ele, idx) => {
             e.preventDefault();
             buttonProperty(wrapper.id);
         });
+        wrapper.style.border = "1px dashed rgba(0, 0, 0, 0.3)"
         wrapper.appendChild(buttonElement);  // wrap the button
         canvas.appendChild(wrapper);         // add wrapper to canvas
         buttonProperty(wrapper.id);

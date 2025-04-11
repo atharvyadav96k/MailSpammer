@@ -1,3 +1,7 @@
+import { storeForm } from "./storeFormLocally.js";
+import {idStorage} from "./UniqueStack.js";
+import { canvasState } from "./canvas.js";
+
 class SimpleUndo {
     constructor(initialState) {
         this.stack = [initialState];
@@ -10,6 +14,7 @@ class SimpleUndo {
         this.stack.push(newState);
         this.currentIndex++;
         this.version++;
+        storeForm(canvasState(), idStorage.getAll());
     }
 
     undo() {

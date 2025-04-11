@@ -40,6 +40,10 @@ class UniqueCollection {
     print() {
         console.log('Current Values:', [...this.items]);
     }
+
+    setId(ids){
+        this.items = ids;
+    }
 }
 
 export const idStorage = new UniqueCollection();
