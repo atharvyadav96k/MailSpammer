@@ -2,7 +2,18 @@ const express = require('express');
 const formRouter = express.Router();
 const userSchema = require('../schema/user');
 const formSchema = require('../schema/forms');
+const forms = require('../schema/forms');
 
+formRouter.get('/get-all', async (req, res)=>{
+    try{
+        const forms = await formSchema.find().select("_id formName version");
+        return res.status(200).json({
+            data: forms
+        });
+    }catch(err){
+
+    }
+})
 formRouter.get('/get-all/:identifier', async (req, res) => {
     const identifier = req.params.identifier.toLowerCase();
 
@@ -34,8 +45,10 @@ formRouter.get('/get-all/:identifier', async (req, res) => {
     }
 });
 
+
 formRouter.get('/:id', async (req, res) => {
     const id = req.params.id;
+    console.log(id);
     try {
         const data = await formSchema.findById(id);
         if (!data) return res.status(404).json({
@@ -43,7 +56,7 @@ formRouter.get('/:id', async (req, res) => {
             error: "404 not found",
             success: false
         });
-        console.log(data);
+        // console.log(data);
         return res.status(200).json({
             message: `form data ${id}`,
             data: data,
@@ -61,7 +74,7 @@ formRouter.get('/:id', async (req, res) => {
 formRouter.post("/create", async (req, res) => {
     const { name } = req.body;
     console.log(req.body);
-    console.log(name)
+    console.log(name);
     try {
         const form = formSchema({
             formName: name
@@ -87,7 +100,11 @@ formRouter.post('/update/:id', async (req, res) => {
     // console.log(data, id);
     try {
         const form = await formSchema.findOne({_id: id});
-        console.log(form);
+        if(!form) return res.status(404).json({
+            message: "Not found",
+            success: false
+        });
+        // console.log(form);
         form.data = data;
         form.version = version;
         await form.save();
@@ -106,4 +123,16 @@ formRouter.post('/update/:id', async (req, res) => {
     }
 })
 
+formRouter.get('/delete/:id', async (req, res)=>{
+    const id = req.params.id;
+    try{
+        await formSchema.findOneAndDelete({_id: id});
+        return res.redirect("http://127.0.0.1:5501/Fontend/dashboard/index.html")
+    }catch(err){
+        return res.status(500).json({
+            message: "Failed to delete form",
+            success: false
+        })
+    }
+})
 module.exports = formRouter;
