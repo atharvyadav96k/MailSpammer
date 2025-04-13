@@ -70,7 +70,7 @@ function reviveListener() {
         }
     });
 }
-export function showCustomToast({ message = "This is a toast!", type = "danger", duration = 3000 }) {
+export function showCustomToast({ message = "This is a toast!", type = "danger", duration = 3000, action = ()=>{} }) {
     const container = document.getElementById('toastContainer');
 
     const toast = document.createElement('div');
@@ -87,6 +87,7 @@ export function showCustomToast({ message = "This is a toast!", type = "danger",
         toast.style.animation = "fadeOut 0.5s ease forwards";
         setTimeout(() => {
             toast.remove();
+            action();
         }, 500);
     }, duration);
 }
@@ -130,7 +131,7 @@ export const removeBorder = () => {
 setTimeout(() => {
     const form = new URLSearchParams(window.location.search).get("form");
     console.log(form);
-    fetch(`http://localhost:4000/forms/${form}`, {
+    fetch(`http://localhost:4000/forms/sdfsdsfsdfsdfsdf`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -146,8 +147,7 @@ setTimeout(() => {
         })
         .catch((err) => {
             console.log(err.message);
-
+            showCustomToast({message: err.message, type: "danger", duration: 3000, action : ()=>{window.location.href = "http://localhost:5500/Fontend/index.html"}});
         })
     console.log(getStoredForm().version);
-    // console.log(getStoredForm().ids);
 });
