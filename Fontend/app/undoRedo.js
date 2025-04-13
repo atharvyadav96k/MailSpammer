@@ -1,6 +1,7 @@
 import { storeForm } from "./storeFormLocally.js";
-import {idStorage} from "./UniqueStack.js";
+import { idStorage } from "./UniqueStack.js";
 import { canvasState } from "./canvas.js";
+import { updateToCloud } from "./updateChanges/updateToCloud.js";
 
 class SimpleUndo {
     constructor(initialState) {
@@ -14,7 +15,9 @@ class SimpleUndo {
         this.stack.push(newState);
         this.currentIndex++;
         this.version++;
-        storeForm(canvasState(), idStorage.getAll());
+        console.log(this.version)
+        storeForm(canvasState(), idStorage.getAll(), this.version);
+        updateToCloud(canvasState(), idStorage.getAll(), this.version);
     }
 
     undo() {

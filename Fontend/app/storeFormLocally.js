@@ -1,8 +1,9 @@
 
-export const storeForm = (htmlCode, ids)=>{
+export const storeForm = (htmlCode, ids, version)=>{
     const form = {
         code : htmlCode,
-        ids : ids
+        ids : ids,
+        version: version
     };
     const dataString = JSON.stringify(form);
     localStorage.setItem("form", dataString);
@@ -11,6 +12,5 @@ export const storeForm = (htmlCode, ids)=>{
 export const getStoredForm = ()=>{
     const dataString = localStorage.getItem("form");
     const form = JSON.parse(dataString);
-    console.log(form);
     return form;
 }

@@ -1,4 +1,5 @@
 import { getId } from "./globalFunction.js";
+import { GlobalSelectedItem } from "./selectedItem.js";
 export const canvas = document.getElementById("mailScreen");
 
 function copyToClipboard(text) {
@@ -10,16 +11,7 @@ function copyToClipboard(text) {
 }
 document.getElementById("saveButton").addEventListener('click', () => {
     const elements = canvas.querySelectorAll("*");
-    elements.forEach((element) => {
-        element.style.borderBottom = "";
-        element.style.cursor = "";
-        element.removeAttribute("id");
-        const elementId = getId();
-        element.id = elementId;
-        element.addEventListener('click', () => {
-            textPropertys(element.id);
-        });
-    });
+    GlobalSelectedItem.item.style.border = "none";
     let txt = `
     <html>
     <head>
@@ -73,8 +65,12 @@ document.getElementById("saveButton").addEventListener('click', () => {
     </body>
     </html>`;
     copyToClipboard(txt);
+    GlobalSelectedItem.item.style.border = "1px dashed rgba(0, 0, 0, 0.3)";
 });
 
 export function canvasState(){
-    return canvas.innerHTML;
+    GlobalSelectedItem.item.style.border = "none";
+    const data = canvas.innerHTML;
+    GlobalSelectedItem.item.style.border = "1px dashed rgba(0, 0, 0, 0.3)";
+    return data;
 }

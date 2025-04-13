@@ -1,5 +1,5 @@
 import { GlobalSelectedItem } from "./selectedItem.js";
-import { canvas } from "./canvas.js";
+import { canvas, canvasState } from "./canvas.js";
 import { property } from "./propertyWindow.js";
 import { undoRedo } from "./undoRedo.js";
 import { textElementRevive } from "./text.js";
@@ -8,7 +8,6 @@ import { idStorage } from "./UniqueStack.js";
 import { linkElementRevive } from "./link.js";
 import { imageElementRevive } from "./image.js";
 import { getStoredForm } from "./storeFormLocally.js";
-
 GlobalSelectedItem.item = null;
 GlobalSelectedItem.selectedItemType = null;
 
@@ -18,6 +17,7 @@ function removeElement() {
     if (GlobalSelectedItem.item) {
         GlobalSelectedItem.item.remove();
         GlobalSelectedItem.item = null;
+        undoRedo.do(canvasState());
     }
     GlobalSelectedItem.selectedItemType = null;
     property();
@@ -26,12 +26,14 @@ function moveElementUp() {
     const element = GlobalSelectedItem.item;
     if (element && element.previousElementSibling) {
         canvas.insertBefore(element, element.previousElementSibling);
+        undoRedo.do(canvasState());
     }
 }
 function moveElementDown() {
     const element = GlobalSelectedItem.item;
     if (element && element.nextElementSibling) {
         canvas.insertBefore(element.nextElementSibling, element);
+        undoRedo.do(canvasState());
     }
 }
 document.addEventListener('keydown', (event) => {
@@ -68,7 +70,7 @@ function reviveListener() {
         }
     });
 }
-function showCustomToast({ message = "This is a toast!", type = "danger", duration = 3000 }) {
+export function showCustomToast({ message = "This is a toast!", type = "danger", duration = 3000 }) {
     const container = document.getElementById('toastContainer');
 
     const toast = document.createElement('div');
@@ -126,8 +128,26 @@ export const removeBorder = () => {
 }
 
 setTimeout(() => {
-    canvas.innerHTML = getStoredForm().code;
-    idStorage.setId(getStoredForm().ids);
-    console.log(getStoredForm().ids);
-    reviveListener();
-}, 2000);
+    const form = new URLSearchParams(window.location.search).get("form");
+    console.log(form);
+    fetch(`http://localhost:4000/forms/${form}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then((response) => response.json())
+        .then((data) => {
+            const cloudData = JSON.parse(data.data.data);
+            console.log(cloudData.ids);
+            canvas.innerHTML = cloudData.code;
+            idStorage.setId(cloudData.ids);
+            undoRedo.version = cloudData.version;
+            reviveListener();
+        })
+        .catch((err) => {
+            console.log(err.message);
+
+        })
+    console.log(getStoredForm().version);
+    // console.log(getStoredForm().ids);
+});
