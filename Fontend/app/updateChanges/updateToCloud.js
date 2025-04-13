@@ -18,7 +18,8 @@ export const updateToCloud = (code, ids, version)=>{
         version
     }
     updating(true);
-    fetch("http://localhost:4000/forms/update/67fa6dcc70a418cccd16b10a", {
+    const formId = new URLSearchParams(window.location.search).get("form");
+    fetch(`http://localhost:4000/forms/update/${formId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

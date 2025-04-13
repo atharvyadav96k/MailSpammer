@@ -53,7 +53,7 @@
                         <i class="ti ti-dashboard"></i>
                     </li>
                     <li class="pc-item active">
-                        <a href="#" class="pc-link">
+                        <a  class="pc-link">
                             <span class="pc-micon"><i class="bi bi-list-columns"></i></span>
                             <span class="pc-mtext">Forms</span>
                         </a>
@@ -73,17 +73,17 @@
             <div class="me-auto pc-mob-drp">
                 <ul class="list-unstyled">
                     <li class="pc-h-item pc-sidebar-collapse">
-                        <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+                        <a  class="pc-head-link ms-0" id="sidebar-hide">
                             <i class="ti ti-menu-2"></i>
                         </a>
                     </li>
                     <li class="pc-h-item pc-sidebar-popup">
-                        <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+                        <a  class="pc-head-link ms-0" id="mobile-collapse">
                             <i class="ti ti-menu-2"></i>
                         </a>
                     </li>
                     <li class="dropdown pc-h-item d-inline-flex d-md-none">
-                        <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" href="#"
+                        <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" 
                             role="button" aria-haspopup="false" aria-expanded="false">
                             <i class="ti ti-search"></i>
                         </a>
@@ -120,47 +120,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 col-xl-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <i class="bi bi-card-checklist fs-3"></i>
-                                </div>
-                                <div class="flex-grow-1 mx-3">
-                                    <h6 class="mb-1">Form Name</h6>
-                                    <p class="text-muted text-sm mb-0">Category</p>
-                                </div>
-                                <div class="dropdown">
-                                    <a class="avtar avtar-s btn-link-secondary dropdown-toggle arrow-none" href="#"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="ti ti-dots-vertical f-18"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">Preview</a>
-                                        <a class="dropdown-item" href="#">Share</a>
-                                        <a class="dropdown-item" href="#">Edit</a>
-                                        <a class="dropdown-item" href="#">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <p class="mb-4">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis veritatis unde, et minima
-                                ipsa atque ullam amet similique eos eaque deleniti ad aliquid quos, veniam alias. Odio
-                                natus eius tempore.
-                            </p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                                    data-bs-target="#user-modal">Preview</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row" id="canvas">
             </div>
         </div>
     </div>
@@ -170,6 +130,8 @@
     <script src="../assets/js/fonts/custom-font.js"></script>
     <script src="../assets/js/pcoded.js"></script>
     <script src="../assets/js/plugins/feather.min.js"></script>
+    <script type="module" src="../app/list/app.js"></script>
+    <script type="module" src="../app/list/mapData.js"></script>
     <script>layout_change('light');</script>
     <script>change_box_container('false');</script>
     <script>layout_rtl_change('false');</script>

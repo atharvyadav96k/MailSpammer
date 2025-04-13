@@ -11,14 +11,20 @@ import { getStoredForm } from "./storeFormLocally.js";
 GlobalSelectedItem.item = null;
 GlobalSelectedItem.selectedItemType = null;
 
+function isDesktop(){
+    const size = window.screen.width;
+    if(size < 1025) window.location.href = "/Fontend/dashboard/index.html"; 
+}
+
+isDesktop();
 property();
 
 function removeElement() {
     if (GlobalSelectedItem.item) {
         GlobalSelectedItem.item.remove();
         GlobalSelectedItem.item = null;
-        undoRedo.do(canvasState());
     }
+    undoRedo.do(canvasState());
     GlobalSelectedItem.selectedItemType = null;
     property();
 }
@@ -26,15 +32,15 @@ function moveElementUp() {
     const element = GlobalSelectedItem.item;
     if (element && element.previousElementSibling) {
         canvas.insertBefore(element, element.previousElementSibling);
-        undoRedo.do(canvasState());
     }
+    undoRedo.do(canvasState());
 }
 function moveElementDown() {
     const element = GlobalSelectedItem.item;
     if (element && element.nextElementSibling) {
         canvas.insertBefore(element.nextElementSibling, element);
-        undoRedo.do(canvasState());
     }
+    undoRedo.do(canvasState());
 }
 document.addEventListener('keydown', (event) => {
     if ((event.ctrlKey || event.metaKey) && (event.key).toLocaleLowerCase() == "z") {
@@ -131,7 +137,7 @@ export const removeBorder = () => {
 setTimeout(() => {
     const form = new URLSearchParams(window.location.search).get("form");
     console.log(form);
-    fetch(`http://localhost:4000/forms/sdfsdsfsdfsdfsdf`, {
+    fetch(`http://localhost:4000/forms/${form}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -147,7 +153,7 @@ setTimeout(() => {
         })
         .catch((err) => {
             console.log(err.message);
-            showCustomToast({message: err.message, type: "danger", duration: 3000, action : ()=>{window.location.href = "http://localhost:5500/Fontend/index.html"}});
+            showCustomToast({message: err.message, type: "danger", duration: 3000});
         })
     console.log(getStoredForm().version);
 });

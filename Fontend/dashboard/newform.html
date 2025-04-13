@@ -50,7 +50,7 @@
       <div class="m-header">
         <a href="../dashboard/index.html" class="b-brand text-primary">
           <!-- ========   Change your logo from here   ============ -->
-          <img src="../assets/images/logo-dark.svg" class="img-fluid logo-lg" alt="logo">
+          <img src="../assets/images/logo.png" width="40" alt="logo">
         </a>
       </div>
       <div class="navbar-content">
@@ -66,7 +66,7 @@
             </a>
           </li>
           <li class="pc-item active">
-            <a href="#" class="pc-link">
+            <a  class="pc-link">
               <span class="pc-micon"><i class="bi bi-newspaper"></i></span>
               <span class="pc-mtext">New Form</span>
             </a>
@@ -75,24 +75,22 @@
       </div>
     </div>
   </nav>
-  <!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
   <header class="pc-header">
-    <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
+    <div class="header-wrapper">
       <div class="me-auto pc-mob-drp">
         <ul class="list-unstyled">
-          <!-- ======= Menu collapse Icon ===== -->
           <li class="pc-h-item pc-sidebar-collapse">
-            <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+            <a  class="pc-head-link ms-0" id="sidebar-hide">
               <i class="ti ti-menu-2"></i>
             </a>
           </li>
           <li class="pc-h-item pc-sidebar-popup">
-            <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+            <a  class="pc-head-link ms-0" id="mobile-collapse">
               <i class="ti ti-menu-2"></i>
             </a>
           </li>
           <li class="dropdown pc-h-item d-inline-flex d-md-none">
-            <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" href="#" role="button"
+            <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown"  role="button"
               aria-haspopup="false" aria-expanded="false">
               <i class="ti ti-search"></i>
             </a>
@@ -137,10 +135,10 @@
               <div class="row" style="align-items: center;">
                 <div class="col-md-6">
                   <div class="card">
-                    <div class="card-body">
+                    <form class="card-body" id="newForm">
                       <div class="form-group">
                         <label class="form-label">Form Name</label>
-                        <input type="text" class="form-control" placeholder="Enter Form Name">
+                        <input type="text" name="name" class="form-control" placeholder="Enter Form Name">
                       </div>
                       <div class="form-group">
                         <label class="form-label">Form Description</label>
@@ -151,9 +149,9 @@
                         <input type="text" class="form-control" placeholder="Enter Form Category">
                       </div>                      
                       <div class="text-end btn-page mb-0 mt-4">
-                        <a class="btn btn-primary" href="/Fontend/index.html">Add new Form</a>
+                        <button class="btn btn-primary" type="submit">Add new Form</button>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -172,6 +170,7 @@
   <script src="../assets/js/fonts/custom-font.js"></script>
   <script src="../assets/js/pcoded.js"></script>
   <script src="../assets/js/plugins/feather.min.js"></script>
+  <script src="../app/newForm/app.js"></script>
   <script>layout_change('light');</script>
   <script>change_box_container('false');</script>
   <script>layout_rtl_change('false');</script>
