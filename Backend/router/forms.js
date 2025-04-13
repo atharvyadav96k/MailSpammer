@@ -127,7 +127,10 @@ formRouter.get('/delete/:id', async (req, res)=>{
     const id = req.params.id;
     try{
         await formSchema.findOneAndDelete({_id: id});
-        return res.redirect("http://127.0.0.1:5501/Fontend/dashboard/index.html")
+        return res.status(201).json({
+            message: "deleted successfully",
+            success: true
+        })
     }catch(err){
         return res.status(500).json({
             message: "Failed to delete form",

@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
+
 <body>
     <div class="loader-bg">
         <div class="loader-track">
@@ -53,7 +54,7 @@
                         <i class="ti ti-dashboard"></i>
                     </li>
                     <li class="pc-item active">
-                        <a  class="pc-link">
+                        <a class="pc-link">
                             <span class="pc-micon"><i class="bi bi-list-columns"></i></span>
                             <span class="pc-mtext">Forms</span>
                         </a>
@@ -73,18 +74,18 @@
             <div class="me-auto pc-mob-drp">
                 <ul class="list-unstyled">
                     <li class="pc-h-item pc-sidebar-collapse">
-                        <a  class="pc-head-link ms-0" id="sidebar-hide">
+                        <a class="pc-head-link ms-0" id="sidebar-hide">
                             <i class="ti ti-menu-2"></i>
                         </a>
                     </li>
                     <li class="pc-h-item pc-sidebar-popup">
-                        <a  class="pc-head-link ms-0" id="mobile-collapse">
+                        <a class="pc-head-link ms-0" id="mobile-collapse">
                             <i class="ti ti-menu-2"></i>
                         </a>
                     </li>
                     <li class="dropdown pc-h-item d-inline-flex d-md-none">
-                        <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" 
-                            role="button" aria-haspopup="false" aria-expanded="false">
+                        <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" role="button"
+                            aria-haspopup="false" aria-expanded="false">
                             <i class="ti ti-search"></i>
                         </a>
                         <div class="dropdown-menu pc-h-dropdown drp-search">
@@ -124,6 +125,23 @@
             </div>
         </div>
     </div>
+    <script>
+        function sayHello() {
+            console.log("Hello");
+        }
+        function deleteForm(id) {
+            fetch(`https://api.fluxmailer.sbs/forms/delete/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then((response) => response.json())
+                .catch((err) => {
+                    console.log(err.message);
+                })
+        }
+    </script>
     <script src="../assets/js/plugins/popper.min.js"></script>
     <script src="../assets/js/plugins/simplebar.min.js"></script>
     <script src="../assets/js/plugins/bootstrap.min.js"></script>

@@ -137,7 +137,7 @@ export const removeBorder = () => {
 setTimeout(() => {
     const form = new URLSearchParams(window.location.search).get("form");
     console.log(form);
-    fetch(`http://localhost:4000/forms/${form}`, {
+    fetch(`https://api.fluxmailer.sbs/forms/${form}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
