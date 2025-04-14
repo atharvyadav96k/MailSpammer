@@ -14,7 +14,7 @@ GlobalSelectedItem.selectedItemType = null;
 
 function isDesktop(){
     const size = window.screen.width;
-    if(size < 1025) window.location.href = "/Fontend/dashboard/index.html"; 
+    if(size < 1025) window.location.href = "/dashboard/index.html"; 
 }
 
 isDesktop();
