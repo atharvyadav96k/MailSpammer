@@ -114,7 +114,12 @@
               <span class="pc-mtext"> Links</span>
             </a>
           </li>
-
+          <li class="pc-item">
+            <a  class="pc-link" id="spaceBtn">
+              <span class="pc-micon"><i class="bi bi-distribute-vertical"></i></span>
+              <span class="pc-mtext"> Space</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -331,6 +336,12 @@
         <p>Url</p>
         <textarea style="width: 100%;" id="textLink"></textarea>
       </div>
+      <div id="spacePropertyWindow">
+        <div style="display: flex;  align-items: baseline;">
+          <p>height: </p>
+          <input type="number" id="spaceHeight" style="width: 50px; margin-left: 5px;" placeholder="10">
+        </div>
+      </div>
       <button class="btn btn-danger" id="deleteElement" style="margin-top: 12px;">Delete</button>
     </div>
   </div>
@@ -357,6 +368,7 @@
   <script type="module" src="../app/propertyWindow.js"></script>
   <script type="module" src="../app/storeFormLocally.js"></script>
   <script type="module" src="../app/updateChanges/updateToCloud.js"></script>
+  <script type="module" src="../app/space.js"></script>
   <script>layout_change('light');</script>
   <script>change_box_container('false');</script>
   <script>layout_rtl_change('false');</script>

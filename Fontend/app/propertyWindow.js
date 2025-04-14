@@ -5,7 +5,13 @@ const textPropertyWindow = document.getElementById("textPropertyWindow");
 const imagePropertyWindow = document.getElementById("imagePropertyWindow");
 const buttonPropertyWindow = document.getElementById("buttonPropertyWindow");
 const linkPropertyWindow = document.getElementById("linkPropertyWindow");
+const spacePropertyWindow = document.getElementById("spacePropertyWindow");
 
+
+function loadSpaceProperty(){
+    if(!GlobalSelectedItem.item) return;
+    document.getElementById("spaceHeight").style.height =GlobalSelectedItem.item.style.height;
+}
 function loadTextProperty() {
     if (!GlobalSelectedItem.item) return;
     document.getElementById("contentTextArea").value = GlobalSelectedItem.item.innerText || GlobalSelectedItem.item.textContent;
@@ -63,31 +69,32 @@ function loadLinkProperty() {
 }
 
 export function property() {
-    let items = [textPropertyWindow, imagePropertyWindow, buttonPropertyWindow, linkPropertyWindow];
+    let items = [textPropertyWindow, imagePropertyWindow, buttonPropertyWindow, linkPropertyWindow, spacePropertyWindow];
     items.forEach((ele) => {
         ele.style.display = "none";
     });
-
+    document.getElementById("property-window").style.display = "block";
     switch (GlobalSelectedItem.selectedItemType) {
         case "text":
-            document.getElementById("property-window").style.display = "block";
             textPropertyWindow.style.display = "block";
             loadTextProperty();
             break;
         case "img":
-            document.getElementById("property-window").style.display = "block";
             imagePropertyWindow.style.display = "block";
             loadImageProperty();
             break;
         case "btn":
-            document.getElementById("property-window").style.display = "block";
             buttonPropertyWindow.style.display = "block";
             loadButtonProperty();
             break;
         case "link":
-            document.getElementById("property-window").style.display = "block";
             linkPropertyWindow.style.display = "block";
             loadLinkProperty();
+            break;
+        case "space":
+            document.getElementById("property-window").style.display = "block";
+            spacePropertyWindow.style.display = "block";
+            loadSpaceProperty();
             break;
         default:
             document.getElementById("property-window").style.display = "none";

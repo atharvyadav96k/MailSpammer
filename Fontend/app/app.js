@@ -4,6 +4,7 @@ import { property } from "./propertyWindow.js";
 import { undoRedo } from "./undoRedo.js";
 import { textElementRevive } from "./text.js";
 import { buttonElementRevive } from "./button.js";
+import { spaceElementRevive } from "./space.js";
 import { idStorage } from "./UniqueStack.js";
 import { linkElementRevive } from "./link.js";
 import { imageElementRevive } from "./image.js";
@@ -73,6 +74,8 @@ function reviveListener() {
             linkElementRevive(ele.id);
         } else if (ele.type == "img") {
             imageElementRevive(ele.id);
+        }else if (ele.type == "space"){
+            spaceElementRevive(ele.id);
         }
     });
 }

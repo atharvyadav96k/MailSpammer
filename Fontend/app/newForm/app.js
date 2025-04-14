@@ -13,7 +13,7 @@ form.addEventListener('submit', (event)=>{
     })
     .then((data)=>{
         console.log(data);
-        window.location.href = "/Fontend/dashboard/index.html"
+        window.location.href = "/dashboard/index.html"
     })
     .catch((err)=>{
         alert(err.message);
