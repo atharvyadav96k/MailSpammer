@@ -1,6 +1,5 @@
 const express = require('express');
 const formRouter = express.Router();
-const userSchema = require('../schema/user');
 const formSchema = require('../schema/forms');
 const forms = require('../schema/forms');
 

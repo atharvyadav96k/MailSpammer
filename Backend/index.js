@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 connectDB();
 
-const authRouter = require('./router/auth');
 const formRouter = require('./router/forms');
 
 app.use(cors());
