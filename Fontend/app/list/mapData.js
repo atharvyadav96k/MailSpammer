@@ -15,7 +15,7 @@ export const form = ({ formName = "Form Name", formId = "" }) => {
             </div>
             <div class="card-footer">
                 <div class="d-flex align-items-center justify-content-between">
-                    <a href="/Fontend/dashboard/form.html?form=${formId}" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a href="/dashboard/form.html?form=${formId}" class="btn btn-sm btn-outline-primary">Edit</a>
                     <button onclick="deleteForm('${formId}')" class="btn btn-sm btn-outline-danger">Delete</button>
                 </div>
             </div>
