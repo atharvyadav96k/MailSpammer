@@ -11,11 +11,18 @@ connectDB();
 
 const formRouter = require('./router/forms');
 
+const allowedOrigins = [process.env.FRONTEND_ADDRESS, process.env.FRONTEND_ADDRESS2];
 app.use(cors({
-    origin: process.env.FRONTEND_ADDRESS,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     sameSite: 'None'
-}));
+  }));
 
 app.use(cookieParser());
 app.use(bodyParser.json());
