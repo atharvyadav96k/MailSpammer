@@ -19,8 +19,9 @@ export const updateToCloud = (code, ids, version)=>{
     }
     updating(true);
     const formId = new URLSearchParams(window.location.search).get("form");
-    fetch(`https://api.fluxmailer.sbs/forms/update/${formId}`, {
+    fetch(`http://localhost:4000/forms/update/${formId}`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },

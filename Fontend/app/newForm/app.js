@@ -2,8 +2,9 @@ const form = document.getElementById("newForm");
 
 form.addEventListener('submit', (event)=>{
     event.preventDefault();
-    fetch('https://api.fluxmailer.sbs/forms/create', {
+    fetch('http://localhost:4000/forms/create', {
         method: 'POST',
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },

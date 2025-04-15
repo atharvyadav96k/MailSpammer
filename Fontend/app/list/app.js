@@ -3,13 +3,14 @@ import {form} from "./mapData.js";
 const canvas = document.getElementById('canvas');
 
 
-
 function getForms(){
     console.log("Hello")
-    fetch("https://api.fluxmailer.sbs/forms/get-all", {
+    fetch("http://localhost:4000/forms/get-all", {
+        method: 'GET',
+        credentials: 'include',
         headers: {
             'Content-Type': "application/json"
-        }
+        },
     })
     .then((response)=>response.json())
     .then((data)=>{
@@ -26,7 +27,6 @@ function renderData(data){
         canvas.innerHTML += form({formName: ele.formName, formId: ele._id});
     })
 }
-
 
 
 getForms();

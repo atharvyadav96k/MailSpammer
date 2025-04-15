@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- [Head] start -->
+
+<head>
+    <title>Sign-Up | FluxMailer</title>
+    <!-- [Meta] -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+
+    <!-- [Favicon] icon -->
+    <link rel="icon" href="../assets/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
+        id="main-font-link">
+    <!-- [Tabler Icons] https://tablericons.com -->
+    <link rel="stylesheet" href="../assets/fonts/tabler-icons.min.css">
+    <!-- [Feather Icons] https://feathericons.com -->
+    <link rel="stylesheet" href="../assets/fonts/feather.css">
+    <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+    <link rel="stylesheet" href="../assets/fonts/fontawesome.css">
+    <!-- [Material Icons] https://fonts.google.com/icons -->
+    <link rel="stylesheet" href="../assets/fonts/material.css">
+    <!-- [Template CSS Files] -->
+    <link rel="stylesheet" href="../assets/css/style.css" id="main-style-link">
+    <link rel="stylesheet" href="../assets/css/style-preset.css">
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body>
+    <!-- [Pre-loader] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [Pre-loader] End -->
+
+    <div class="auth-main">
+        <div class="auth-wrapper v3">
+            <div class="auth-form">
+                <div class="auth-header">
+                    <a href="#"><img src="../assets/images/logo.png" width="40" alt="img"></a>
+                </div>
+                <div class="card my-5">
+                    <form class="card-body" action="http://localhost:4000/auth/signin" method="POST">
+                        <div class="d-flex justify-content-between align-items-end mb-4">
+                            <h3 class="mb-0"><b>Sign-In</b></h3>
+                            <a href="#" class="link-primary">Already have an account?</a>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Username or email</label>
+                            <input type="text" name="identity" class="form-control" placeholder="Username or email"
+                                required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary">Sign In</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('auth');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // prevent page reload
+
+            const formData = new FormData(form);
+            const data = {
+                identity: formData.get('identity'),
+                password: formData.get('password')
+            };
+
+            try {
+                const res = await fetch('http://localhost:4000/auth/signin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                    credentials: 'include'
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    alert("Sign-up successful!");
+                } else {
+                    alert("Error: " + result.message);
+                }
+            } catch (error) {
+                console.error("Signup Error:", error);
+                alert("Something went wrong!");
+            }
+        });
+    </script>
+
+    <!-- [Main Content] end -->
+
+    <!-- Required Js -->
+    <script src="../assets/js/plugins/popper.min.js"></script>
+    <script src="../assets/js/plugins/simplebar.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap.min.js"></script>
+    <script src="../assets/js/fonts/custom-font.js"></script>
+    <script src="../assets/js/pcoded.js"></script>
+    <script src="../assets/js/plugins/feather.min.js"></script>
+
+    <script>layout_change('light');</script>
+    <script>change_box_container('false');</script>
+    <script>layout_rtl_change('false');</script>
+    <script>preset_change("preset-1");</script>
+    <script>font_change("Public-Sans");</script>
+</body>
+<!-- [Body] end -->
+
+</html>
