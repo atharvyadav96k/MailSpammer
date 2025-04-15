@@ -12,7 +12,7 @@ connectDB();
 const formRouter = require('./router/forms');
 
 app.use(cors({
-    origin: 'http://localhost:5500',
+    origin: process.env.FRONTEND_ADDRESS,
     credentials: true,
     sameSite: 'None'
 }));
