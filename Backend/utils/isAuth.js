@@ -9,7 +9,7 @@ exports.isAuth = async (req, res, next) => {
     console.log(userToken)
     console.log(cookiesData)
     if(userToken.token != cookiesData.token) {
-        return res.redirect("https://www.fluxmailer.sbs"+"/auth/signin.html");
+        return res.redirect(process.env.FRONTEND_ADDRESS+"/auth/signin.html");
     }
     console.log(cookiesData);
     console.log("isAuth");

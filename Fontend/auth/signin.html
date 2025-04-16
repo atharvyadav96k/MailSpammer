@@ -67,40 +67,6 @@
             </div>
         </div>
     </div>
-    <script>
-        const form = document.getElementById('auth');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault(); // prevent page reload
-
-            const formData = new FormData(form);
-            const data = {
-                identity: formData.get('identity'),
-                password: formData.get('password')
-            };
-
-            try {
-                const res = await fetch('https://www.fluxmailer.sbs/auth/signin', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data),
-                    credentials: 'include'
-                });
-                const result = await res.json();
-
-                if (result.success) {
-                    alert("Sign-up successful!");
-                } else {
-                    alert("Error: " + result.message);
-                }
-            } catch (error) {
-                console.error("Signup Error:", error);
-                alert("Something went wrong!");
-            }
-        });
-    </script>
 
     <!-- [Main Content] end -->
 
