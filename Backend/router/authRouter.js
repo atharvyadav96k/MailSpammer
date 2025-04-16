@@ -18,9 +18,9 @@ auth.post('/signup', async (req, res) => {
             password: hashedPassword
         });
         await user.save();
-        return res.redirect(process.env.FRONTEND_ADDRESS+"/auth/signin.html");
+        return res.redirect("https://www.fluxmailer.sbs"+"/auth/signin.html");
     } catch (err) {
-        return res.redirect(process.env.FRONTEND_ADDRESS+"error-500.html")
+        return res.redirect("https://www.fluxmailer.sbs"+"error-500.html")
     }
 });
 
@@ -36,7 +36,7 @@ auth.post('/signin', isAuth,async (req, res) => {
         });
 
         if (!user) {
-            return res.redirect(process.env.FRONTEND_ADDRESS+"/error-404.html")
+            return res.redirect("https://www.fluxmailer.sbs"+"/error-404.html")
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -65,9 +65,9 @@ auth.post('/signin', isAuth,async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000
         }); 
 
-        return res.redirect(process.env.FRONTEND_ADDRESS+'/dashboard')
+        return res.redirect("https://www.fluxmailer.sbs"+'/dashboard')
     } catch (err) {
-        return res.redirect(process.env.FRONTEND_ADDRESS+"/error-500.html");
+        return res.redirect("https://www.fluxmailer.sbs"+"/error-500.html");
     }
 });
 
