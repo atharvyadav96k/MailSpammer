@@ -13,8 +13,7 @@ const formRouter = require('./router/forms');
 
 app.use(cors({
     origin: "https://www.fluxmailer.sbs",
-    credentials: true,
-    sameSite: 'None'
+    credentials: true
 }));
 
 app.use(cookieParser());
