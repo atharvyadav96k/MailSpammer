@@ -18,9 +18,15 @@ auth.post('/signup', async (req, res) => {
             password: hashedPassword
         });
         await user.save();
-        return res.redirect(process.env.FRONTEND_ADDRESS+"/auth/signin.html");
+        return res.status(200).json({
+            message: "Account created successfully",
+            success: true
+        })
     } catch (err) {
-        return res.redirect(process.env.FRONTEND_ADDRESS+"error-500.html")
+        return res.status(500).json({
+            message: "Unable to create account",
+            success: false
+        })
     }
 });
 
@@ -36,7 +42,11 @@ auth.post('/signin', isAuth,async (req, res) => {
         });
 
         if (!user) {
-            return res.redirect(process.env.FRONTEND_ADDRESS+"/error-404.html")
+            return res.status(200).json({
+                message: "User not found",
+                error: "404",
+                success: false
+            });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -65,9 +75,16 @@ auth.post('/signin', isAuth,async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000
         }); 
 
-        return res.redirect(process.env.FRONTEND_ADDRESS+'/dashboard')
+        return res.status(200).json({
+            message : "Login successful",
+            success: true
+        })
     } catch (err) {
-        return res.redirect(process.env.FRONTEND_ADDRESS+"/error-500.html");
+        return res.status(500).json({
+            message: "Login Failed",
+            error: err.message,
+            success: false
+        })
     }
 });
 

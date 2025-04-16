@@ -12,7 +12,7 @@ connectDB();
 const formRouter = require('./router/forms');
 
 app.use(cors({
-    origin: "https://www.fluxmailer.sbs",
+    origin: ["https://www.fluxmailer.sbs", "http://127.0.0.1:5500/"],
     credentials: true,
     sameSite: 'None'
 }));
