@@ -1,4 +1,5 @@
 import {showCustomToast} from "../app.js"
+import { getUrl } from "../production/isProduction.js";
 
 const updating = (status)=>{
     const updated = document.getElementById("updated");
@@ -19,9 +20,9 @@ export const updateToCloud = (code, ids, version)=>{
     }
     updating(true);
     const formId = new URLSearchParams(window.location.search).get("form");
-    fetch(`https://api.fluxmailer.sb/forms/update/${formId}`, {
+    fetch(`${getUrl()}/forms/update/${formId}`, {
         method: 'POST',
-        credentials: 'include',
+        
         headers: {
             'Content-Type': 'application/json'
         },

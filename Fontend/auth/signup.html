@@ -44,10 +44,10 @@
           <a href="#"><img src="../assets/images/logo.png" width="40" alt="img"></a>
         </div>
         <div class="card my-5">
-          <form class="card-body" action="https://www.fluxmailer.sbs/auth/signup" method="POST">
+          <form class="card-body" id="signup" method="post">
             <div class="d-flex justify-content-between align-items-end mb-4">
               <h3 class="mb-0"><b>Sign-Up</b></h3>
-              <a href="#" class="link-primary">Already have an account?</a>
+              <a href="/auth/signin.html" class="link-primary">Already have an account?</a>
             </div>
             <div class="form-group mb-3">
               <label class="form-label">Username</label>
@@ -98,6 +98,8 @@
       </div>
     </div>
   </div>
+  <script type="module" src="../app/authCookies/cookies.js"></script>
+  <script src="../app/auth/signup.js" type="module"></script>
 
   <!-- [Main Content] end -->
 

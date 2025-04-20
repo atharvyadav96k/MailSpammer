@@ -11,10 +11,12 @@ connectDB();
 
 const formRouter = require('./router/forms');
 
-app.use(cors({
-    origin: "https://www.fluxmailer.sbs",
-    credentials: true
-}));
+let corsOptions = {
+    origin : false ? ["https://www.fluxmailer.sbs", "https://fluxmailer.sbs"] : ['http://localhost:5500', 'http://127.0.0.1:5500', "http://127.0.0.1:50801"],
+    methods: 'GET,POST',
+    allowedHeaders: "*"
+}    
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 app.use(bodyParser.json());

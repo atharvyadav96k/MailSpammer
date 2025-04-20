@@ -11,6 +11,23 @@ auth.post('/signup', async (req, res) => {
     const { username, email, password } = req.body;
     console.log("Hello")
     try {
+        const userName = await userSchema.findOne({username});
+        console.log(userName)
+        if(userName){
+            return res.status(409).json({
+                message: "Username already used",
+                success: false,
+                error: "duplication error"
+            });
+        }
+        const userEmail = await userSchema.findOne({email});
+        if(userEmail){
+            return res.status(409).json({
+                message: "Email is already used",
+                success: false,
+                error: "duplication error"
+            })
+        }
         const hashedPassword = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT));
         const user = new userSchema({
             username,
@@ -30,7 +47,7 @@ auth.post('/signup', async (req, res) => {
     }
 });
 
-auth.post('/signin', isAuth,async (req, res) => {
+auth.post('/signin',async (req, res) => {
     const { identity, password } = req.body;
     console.log(identity);
     try {
@@ -58,24 +75,14 @@ auth.post('/signin', isAuth,async (req, res) => {
             });
         }
 
-        // Generate random token and save it
         const token = generateToken();
         user.token = token;
         await user.save();
 
-        // Create a JWT from the token
         const signedToken = jwt.sign({ token: token, user: user.email }, process.env.JWT_SECRET);
 
-        // Send JWT in cookie
-        res.cookie("token", signedToken, {
-            httpOnly: true,
-            sameSite: 'Lax',
-            secure: false,
-            path: '/',
-            maxAge: 24 * 60 * 60 * 1000
-        }); 
-
         return res.status(200).json({
+            cookie : signedToken,
             message : "Login successful",
             success: true
         })

@@ -9,6 +9,9 @@ import { idStorage } from "./UniqueStack.js";
 import { linkElementRevive } from "./link.js";
 import { imageElementRevive } from "./image.js";
 import { getStoredForm } from "./storeFormLocally.js";
+import {getUrl} from "../app/production/isProduction.js";
+import { getCookies } from "./authCookies/cookies.js";
+
 GlobalSelectedItem.item = null;
 GlobalSelectedItem.selectedItemType = null;
 
@@ -140,12 +143,15 @@ export const removeBorder = () => {
 setTimeout(() => {
     const form = new URLSearchParams(window.location.search).get("form");
     console.log(form);
-    fetch(`https://api.fluxmailer.sb/forms/${form}`, {
-        method: 'GET',
-        credentials: 'include',
+    console.log(getCookies(), getUrl())
+    fetch(`${getUrl()}/forms/${form}`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+            cookies: getCookies()
+        })
     }).then((response) => response.json())
         .then((data) => {
             const cloudData = JSON.parse(data.data.data);

@@ -7,7 +7,7 @@
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">    <!-- [Favicon] icon -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- [Favicon] icon -->
     <link rel="icon" href="../assets/images/logo.png" type="image/x-icon"> <!-- [Google Font] Family -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
@@ -119,22 +119,29 @@
         </div>
     </div>
     <script>
-        function sayHello() {
-            console.log("Hello");
-        }
         function deleteForm(id) {
             fetch(`https://api.fluxmailer.sbs/forms/delete/${id}`, {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                body: JSON.stringify({
+                    cookies: localStorage.getItem("cookies")
+                })
             })
-                .then((response) => response.json())
+                .then((response) => {
+                    if(response.status == 201){
+                        window.location.reload();
+                    }
+                    return response.json();
+                })
                 .catch((err) => {
                     console.log(err.message);
                 })
         }
     </script>
+    <script src="../app/production/isProduction.js" type="module"></script>
+    <script src="../app/authCookies/cookies.js" type="module"></script>
     <script src="../assets/js/plugins/popper.min.js"></script>
     <script src="../assets/js/plugins/simplebar.min.js"></script>
     <script src="../assets/js/plugins/bootstrap.min.js"></script>
