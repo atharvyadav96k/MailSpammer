@@ -1,22 +1,22 @@
 const express = require('express');
 const formRouter = express.Router();
 const formSchema = require('../schema/forms');
-const {isAuth} = require('../utils/isAuth');
+const { isAuth } = require('../utils/isAuth');
 const forms = require('../schema/forms');
 
-formRouter.post("/create", isAuth,async (req, res) => {
+formRouter.post("/create", isAuth, async (req, res) => {
     const name = req.body.name;
-    console.log(name);
-    try{
+    try {
         const form = new formSchema({
-            formName: name
+            formName: name,
+            user: req.user._id
         });
         await form.save();
         return res.status(200).json({
             message: "Form created successfully",
             success: true
         })
-    }catch(err){
+    } catch (err) {
         return res.status(500).json({
             message: "Unable to create form",
             error: err.message,
@@ -24,69 +24,45 @@ formRouter.post("/create", isAuth,async (req, res) => {
         })
     }
 });
-formRouter.post('/get-all', isAuth,async (req, res)=>{
-    console.log("Hello")
-    try{
-        const forms = await formSchema.find().select("_id formName version");
+formRouter.post('/get-all', isAuth, async (req, res) => {
+    try {
+        const forms = await formSchema.find({ user: req.user._id }).select("_id formName version data");
         return res.status(200).json({
             data: forms
         });
-    }catch(err){
+    } catch (err) {
         console.log(err.message)
         return res.status(500).json({
             message: "Unable to send data",
-            error : err.message
+            error: err.message
         })
     }
 })
-formRouter.post('/get-all/:identifier', isAuth,async (req, res) => {
-    const identifier = req.params.identifier.toLowerCase();
 
+formRouter.post('/:id', isAuth, async (req, res) => {
+    const id = req.params.id;
     try {
-        const userForms = await userSchema.findOne({
-            $or: [{ email: identifier }, { username: identifier }]
-        }).populate("forms").select("_id");
-
-        if (!userForms) {
-            return res.status(404).json({
-                message: "User not found",
-                error: "user not found",
+        const data = await formSchema.findOne({ _id: id });
+        if (data.user.toString() !== req.user._id.toString()) {
+            return res.status(409).json({
+                message: "You don't have access to this content",
+                error: "Access Denied",
                 success: false
             });
         }
-
-        return res.status(200).json({
-            message: `All forms of user ${identifier}`,
-            data: userForms.forms,
-            success: true
-        });
-
-    } catch (err) {
-        return res.status(500).json({
-            message: "Unable to get forms",
-            error: err.message,
-            success: false
-        });
-    }
-});
-formRouter.post('/:id', isAuth,async (req, res) => {
-    const id = req.params.id;
-    console.log(id);
-    try {
-        const data = await formSchema.findById(id);
-        console.log(data)
         if (!data) return res.status(404).json({
             message: "Unable to find data",
             error: "404 not found",
             success: false
         });
-        // console.log(data);
+        console.log(data);
         return res.status(200).json({
             message: `form data ${id}`,
             data: data,
             success: true
         });
     } catch (err) {
+        console.log(err.message)
         return res.status(500).json({
             message: "Unable to get data",
             error: err.message,
@@ -95,19 +71,24 @@ formRouter.post('/:id', isAuth,async (req, res) => {
     }
 });
 
-
-
-formRouter.post('/update/:id', isAuth,async (req, res) => {
-    console.log("request")
+formRouter.post('/update/:id', isAuth, async (req, res) => {
+    console.log("Update")
     const id = req.params.id;
     const { data, version } = req.body;
     try {
-        const form = await formSchema.findOne({_id: id});
-        if(!form) return res.status(404).json({
+        const form = await formSchema.findOne({ _id: id });
+        console.log(form.user, req.user._id)
+        if (form.user.toString() !== req.user._id.toString()) {
+            return res.status(409).json({
+                message: "You don't have access to this content",
+                error: "Access Denied",
+                success: false
+            });
+        }
+        if (!form) return res.status(404).json({
             message: "Not found",
             success: false
         });
-        // console.log(form);
         form.data = data;
         form.version = version;
         await form.save();
@@ -126,16 +107,24 @@ formRouter.post('/update/:id', isAuth,async (req, res) => {
     }
 })
 
-formRouter.post('/delete/:id', isAuth,async (req, res)=>{
+formRouter.post('/delete/:id', isAuth, async (req, res) => {
     const id = req.params.id;
     console.log(id);
-    try{
-        await formSchema.findOneAndDelete({_id: id});
+    try {
+        const data = await formSchema.findOne({ _id: id });
+        if (data.user.toString() !== req.user._id.toString()) {
+            return res.status(409).json({
+                message: "You don't have access to this content",
+                error: "Access Denied",
+                success: false
+            });
+        }
+        await formSchema.findOneAndDelete({ _id: id });
         return res.status(201).json({
             message: "deleted successfully",
             success: true
         })
-    }catch(err){
+    } catch (err) {
         return res.status(500).json({
             message: "Failed to delete form",
             success: false

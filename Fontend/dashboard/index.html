@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="../assets/css/style.css" id="main-style-link">
     <link rel="stylesheet" href="../assets/css/style-preset.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <link rel="stylesheet" href="../assets/css/customTost.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 
 <body>
@@ -56,6 +57,12 @@
                         <a href="/dashboard/newform.html" class="pc-link">
                             <span class="pc-micon"><i class="bi bi-newspaper"></i></span>
                             <span class="pc-mtext">New Form</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a class="pc-link">
+                            <span class="pc-micon"><i class="bi bi-envelope-plus-fill"></i></span>
+                            <span class="pc-mtext">Add Mail</span>
                         </a>
                     </li>
                 </ul>
@@ -118,6 +125,7 @@
             </div>
         </div>
     </div>
+    <div id="toastContainer" class="toast-container"></div>
     <script>
         function deleteForm(id) {
             fetch(`https://api.fluxmailer.sbs/forms/delete/${id}`, {
@@ -130,13 +138,14 @@
                 })
             })
                 .then((response) => {
-                    if(response.status == 201){
+                    if (response.status == 201) {
                         window.location.reload();
                     }
                     return response.json();
                 })
                 .catch((err) => {
                     console.log(err.message);
+                    alert(err.message)
                 })
         }
     </script>

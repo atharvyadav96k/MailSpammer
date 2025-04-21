@@ -31,10 +31,26 @@ function getForms() {
 
 
 function renderData(data){
-    data.map((ele)=>{
-        canvas.innerHTML += form({formName: ele.formName, formId: ele._id});
-    })
+    canvas.innerHTML = ''; // Clear old content
+    data.map((ele) => {
+        let htmlCode = "";
+
+        try {
+            const parsed = typeof ele.data === 'string' ? JSON.parse(ele.data) : ele.data;
+            htmlCode = parsed.code || "<p>No preview available</p>";
+        } catch (err) {
+            console.error("Failed to parse form data:", err);
+            htmlCode = "<p>Preview not available</p>";
+        }
+
+        canvas.innerHTML += form({
+            formName: ele.formName,
+            formId: ele._id,
+            formHtml: htmlCode
+        });
+    });
 }
+
 
 
 getForms();

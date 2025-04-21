@@ -12,6 +12,9 @@ const formSchema  = mongoose.Schema({
     version: {
         type: Number,
         default: 0
+    },
+    user: {
+        type: String
     }
 });
 

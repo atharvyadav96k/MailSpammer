@@ -1,5 +1,6 @@
 import {showCustomToast} from "../app.js"
 import { getUrl } from "../production/isProduction.js";
+import { getCookies } from "../authCookies/cookies.js";
 
 const updating = (status)=>{
     const updated = document.getElementById("updated");
@@ -22,13 +23,13 @@ export const updateToCloud = (code, ids, version)=>{
     const formId = new URLSearchParams(window.location.search).get("form");
     fetch(`${getUrl()}/forms/update/${formId}`, {
         method: 'POST',
-        
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             data: JSON.stringify(form),
-            version: version
+            version: version,
+            cookies: getCookies()
         })
     })
     .then((response) => response.json())
