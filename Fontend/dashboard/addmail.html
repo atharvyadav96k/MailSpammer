@@ -32,6 +32,11 @@
 <!-- [Body] Start -->
 
 <body>
+  <style>
+    .scroll-hide::-webkit-scrollbar{
+      width: 0px;
+    }
+  </style>
   <!-- [ Pre-loader ] start -->
   <div class="loader-bg">
     <div class="loader-track">
@@ -60,18 +65,18 @@
               <span class="pc-mtext">Template</span>
             </a>
           </li>
-          <li class="pc-item active">
-            <a  class="pc-link">
+          <li class="pc-item ">
+            <a href="/dashboard/newform.html" class="pc-link">
               <span class="pc-micon"><i class="bi bi-newspaper"></i></span>
               <span class="pc-mtext">Custom Template</span>
             </a>
           </li>
-          <li class="pc-item">
-            <a href="/dashboard/addmail.html" class="pc-link">
-                <span class="pc-micon"><i class="bi bi-envelope-plus-fill"></i></span>
-                <span class="pc-mtext">Mail</span>
+          <li class="pc-item active">
+            <a class="pc-link">
+              <span class="pc-micon"><i class="bi bi-envelope-plus-fill"></i></span>
+              <span class="pc-mtext">Mail</span>
             </a>
-        </li>
+          </li>
         </ul>
       </div>
     </div>
@@ -81,17 +86,17 @@
       <div class="me-auto pc-mob-drp">
         <ul class="list-unstyled">
           <li class="pc-h-item pc-sidebar-collapse">
-            <a  class="pc-head-link ms-0" id="sidebar-hide">
+            <a class="pc-head-link ms-0" id="sidebar-hide">
               <i class="ti ti-menu-2"></i>
             </a>
           </li>
           <li class="pc-h-item pc-sidebar-popup">
-            <a  class="pc-head-link ms-0" id="mobile-collapse">
+            <a class="pc-head-link ms-0" id="mobile-collapse">
               <i class="ti ti-menu-2"></i>
             </a>
           </li>
           <li class="dropdown pc-h-item d-inline-flex d-md-none">
-            <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown"  role="button"
+            <a class="pc-head-link dropdown-toggle arrow-none m-0" data-bs-toggle="dropdown" role="button"
               aria-haspopup="false" aria-expanded="false">
               <i class="ti ti-search"></i>
             </a>
@@ -123,7 +128,7 @@
           <div class="row align-items-center">
             <div class="col-md-12">
               <div class="page-header-title">
-                <h2 class="mb-0">Add New Template</h2>
+                <h2 class="mb-0">Manage your mails</h2>
               </div>
             </div>
           </div>
@@ -136,27 +141,25 @@
               <div class="row" style="align-items: center;">
                 <div class="col-md-6">
                   <div class="card">
-                    <form class="card-body" id="newForm">
+                    <form class="card-body" id="newMail">
                       <div class="form-group">
-                        <label class="form-label">Template Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter Form Name">
+                        <label class="form-label">Email</label>
+                        <input type="text" name="mail" class="form-control" placeholder="Enter Form Name">
                       </div>
                       <div class="form-group">
-                        <label class="form-label">Template Description</label>
-                        <input type="text" class="form-control" placeholder="Enter Form Description">
+                        <label class="form-label">Password</label>
+                        <input type="text" name="password" class="form-control" placeholder="Enter Form Description">
                       </div>
-                      <div class="form-group">
-                        <label class="form-label">Category</label>
-                        <input type="text" class="form-control" placeholder="Enter Form Category">
-                      </div>                      
                       <div class="text-end btn-page mb-0 mt-4">
-                        <button class="btn btn-primary" type="submit">Add new Form</button>
+                        <button class="btn btn-primary" type="submit">Add new Mail</button>
                       </div>
                     </form>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <img src="../assets/addProduct/placeholder.jpg" alt="" style="width: 100%;">
+                <div class="col-md-6 scroll-hide" style="height: 301px; overflow: scroll;">
+                  <ul class="list-group list-group-flush" style="min-height: 100%;" id="mails">
+                    <!-- mails area -->
+                  </ul>
                 </div>
               </div>
             </div>
@@ -174,7 +177,7 @@
   <script src="../assets/js/fonts/custom-font.js"></script>
   <script src="../assets/js/pcoded.js"></script>
   <script src="../assets/js/plugins/feather.min.js"></script>
-  <script src="../app/newForm/app.js" type="module"></script>
+  <script src="../app/newMail/newMail.js" type="module"></script>
   <script>layout_change('light');</script>
   <script>change_box_container('false');</script>
   <script>layout_rtl_change('false');</script>

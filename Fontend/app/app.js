@@ -26,10 +26,10 @@ property();
 function removeElement() {
     if (GlobalSelectedItem.item) {
         GlobalSelectedItem.item.remove();
-        GlobalSelectedItem.item = null;
     }
     undoRedo.do(canvasState());
     GlobalSelectedItem.selectedItemType = null;
+    GlobalSelectedItem.item = null;
     property();
 }
 function moveElementUp() {

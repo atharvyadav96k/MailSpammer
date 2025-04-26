@@ -95,4 +95,10 @@ auth.post('/signin',async (req, res) => {
     }
 });
 
+auth.post('/isLoggedIn', isAuth, (req, res)=>{
+    return res.status(200).json({
+        message: "user is logged in",
+        success: true
+    });
+});
 module.exports = auth;
