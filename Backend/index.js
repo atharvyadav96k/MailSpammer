@@ -13,7 +13,7 @@ connectDB();
 
 
 let corsOptions = {
-    origin : true ? ["https://www.fluxmailer.sbs", "https://fluxmailer.sbs"] : ['http://localhost:5500', 'http://127.0.0.1:5500', "http://127.0.0.1:50801"],
+    origin : false ? ["https://www.fluxmailer.sbs", "https://fluxmailer.sbs"] : ['http://localhost:5500', 'http://127.0.0.1:5500', "http://127.0.0.1:50801"],
     methods: 'GET,POST',
     allowedHeaders: "*"
 }    

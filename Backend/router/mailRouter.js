@@ -3,6 +3,9 @@ const mailRouter = express.Router();
 const { isAuth } = require("../utils/isAuth");
 const userSchema = require("../schema/user");
 const { encrypt, decrypt } = require("../utils/encription");
+const formSchema = require('../schema/forms');
+const sendMail = require('../utils/sendMail');
+const forms = require('../schema/forms');
 
 mailRouter.post('/get-mails', isAuth, async (req, res) => {
   try {
@@ -109,5 +112,64 @@ mailRouter.post('/delete', isAuth, async (req, res) => {
     });
   }
 });
+
+mailRouter.post('/send-mail', isAuth, async (req, res) => {
+  let { subject, to, templateId } = req.body;
+  console.log(to, subject, templateId)
+  if (!to || !templateId) {
+    return res.status(400).json({
+      success: false,
+      message: "All fields are required",
+    });
+  }
+
+  try {
+    const userId = req.user._id;
+
+    const user = await userSchema.findById(userId).select("mails");
+    if (!user || !user.mails || user.mails.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Please add your email first",
+      });
+    }
+
+    // Load the template
+    const template = await formSchema.findById(templateId);
+    if (!template || !template.data) {
+      return res.status(404).json({
+        success: false,
+        message: "Template not found",
+      });
+    }
+
+    console.log("users: " + user.mails)
+    const decryptedPass = decrypt(user.mails[0].password); // assuming decrypt function is defined
+    const htmlCode = JSON.parse(template.data).code; // assuming template.data is HTML content
+    console.log(htmlCode)
+    // Send the email
+    await sendMail({
+      mail: user.mails[0].email,
+      password: decryptedPass,
+      to,
+      subject: subject || "",
+      code: htmlCode,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Mail sent successfully",
+    });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: err.message,
+    });
+  }
+});
+
 
 module.exports = mailRouter;

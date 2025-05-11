@@ -47,8 +47,11 @@ export const form = ({ formName = "Form Name", formId = "", formHtml = "" }) => 
                 ></iframe>
             </div>
             <div class="card-footer d-flex justify-content-between">
-                <a href="/dashboard/form.html?form=${formId}" class="btn btn-sm btn-outline-primary">Edit</a>
-                <button onclick="deleteForm('${formId}')" class="btn btn-sm btn-outline-danger">Delete</button>
+                <a class="btn btn-sm btn-outline-primary" href="/dashboard/sendMail.html?id=${formId}">send mail</a>
+                <span>
+                    <a href="/dashboard/form.html?form=${formId}" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <button onclick="deleteForm('${formId}')" class="btn btn-sm btn-outline-danger">Delete</button>
+                </span>
             </div>
         </div>
     </div>
